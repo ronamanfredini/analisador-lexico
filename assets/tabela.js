@@ -1,4 +1,4 @@
-const montaTabela = itemTab => {
+const mountTable = itemTab => {
 	var tabela = $('#tabela_tbody');
 	tabela.html('');
 	for (var i = 0; i < itemTab.length; i++) {
@@ -31,7 +31,7 @@ const montaTabela = itemTab => {
 	}
 };
 
-const validaPalavra = () => {
+const validateWord = () => {
 	var palavras = ($('#buscar_palavras').val()).toLowerCase();
 
 	if (palavras.length == 0) {
@@ -44,7 +44,7 @@ const validaPalavra = () => {
 	for (var i = 0; i < palavras.length; i++) {
 		var exprRegular = /([a-z_])/;
 		if (exprRegular.test(palavras[i]) && erroEstado == false) {
-			highlightTabela(estado, palavras[i], Tabela[estado][palavras[i]]);
+			highlightTable(estado, palavras[i], Tabela[estado][palavras[i]]);
 
 			if (Tabela[estado][palavras[i]] != '-') { // se o estado não for de erro, ele aceita
 				estado = Tabela[estado][palavras[i]];
@@ -53,38 +53,38 @@ const validaPalavra = () => {
 			}
 		} else if (palavras[i] == ' ') {
 			var plvrEncontrada = `<span class='right'><i class="far fa-check-circle"></i></span>`;
-			var plvrNaoEncontrada = `<span class='right'><i class="fas fa-minus-circle"></i></span>`;
+			var plvrNaoEncontrada = `<span style="color:red;" class='right'><i class="far fa-times-circle"></i></span>`;
 
 			if (erroEstado == false) {
 				if (Tabela[estado]['final']) { //Se o estado for final da Encontrado, se não da Estado não final
 					$('#palavras_encontradas').append(`<tr><td class='plvr-overflow'>${palavras}${plvrEncontrada}</td></tr>`);
-					alert("palavra encontrada");
 				} else {
 					$('#palavras_encontradas').append(`<tr><td class='plvr-overflow'>${palavras}${plvrNaoEncontrada}</td></tr>`);
-					alert("palavra não final");
 				}
 			} else {
 				$('#palavras_encontradas').append(`<tr><td class='plvr-overflow'>${palavras}${plvrNaoEncontrada}</td></tr>`);
-				alert("palavra não encontrada");
 			}
 			$('#tabela_tbody tr').removeClass('focus-linha');
 			$('#tabela_tbody td').removeClass('focus-coluna');
 			$('#buscar_palavras').val('');
 		} else if (erroEstado == false) {
-			alert("Apenas caracteres válidos");
 		}
 	}
 };
 
-const highlightTabela = (estado, palavra, erroEstado) => {
+const highlightTable = (estado, palavra, erroEstado) => {
 	$('#tabela_tbody tr').removeClass('focus-linha');
 	$('#tabela_tbody td').removeClass('focus-coluna');
 	$('#tabela_tbody tr').removeClass('focus-linha-erro');
 	$('#tabela_tbody td').removeClass('focus-coluna-erro');
+	$('#tabela_tbody tr').removeClass('semi-focus-erro');
+	$('#tabela_tbody td').removeClass('semi-focus-erro');
+	if (erroEstado == '-') {
+		$('#tabela_tbody .linha_' + estado).addClass('semi-focus-erro');
+		$('#tabela_tbody .coluna_' + palavra).addClass('semi-focus-erro');
+		return;
+	}
+
 	$('#tabela_tbody .linha_' + estado).addClass('focus-linha');
 	$('#tabela_tbody .coluna_' + palavra).addClass('focus-coluna');
-	if (erroEstado == '-') {
-		$('#tabela_tbody .linha_' + estado).addClass('focus-coluna-erro');
-		$('#tabela_tbody .coluna_' + palavra).addClass('focus-coluna-erro');
-	}
 };

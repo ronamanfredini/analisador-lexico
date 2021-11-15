@@ -8,13 +8,13 @@ $(document).ready(function(){
 	$('#insere_palavras').click(() => {
 		var palavra = ($('#input_palavras').val()).toLowerCase();
 		if(palavra){
-			addPalavras(palavra);
+			addWords(palavra);
 		}
 	});
 
 	$('#buscar_palavras').keyup(() => {
 		if(Tabela.length > 0){
-			validaPalavra();
+			validateWord();
 		}
 	});
 
@@ -30,26 +30,26 @@ $(document).ready(function(){
 		
 		if(e.which == 13) {
 			if(palavra){
-				addPalavras(palavra);
+				addWords(palavra);
 			}
 		}
 	});
 
 });
 
-const addPalavras = palavra => {
+const addWords = palavra => {
 	if (Palavras.indexOf(palavra) < 0 && palavra.length > 0) {
 		$('#input-field').append(`<p class='addedWord'>${palavra}
-								<i onclick=\"rmvPalavras('${palavra}')\" style="color: red" class='far fa-times-circle'></i> </p>`);
+								<i onclick=\"removeWords('${palavra}')\" style="color: red" class='far fa-times-circle'></i> </p>`);
 		Palavras.push(palavra);
 		$('#input_palavras').val('');
 	} 
-	montaEstadoPalavra();
+	mountWordState();
 	Tabela = geraLinhasTabela();
-	montaTabela(Tabela);
+	mountTable(Tabela);
 };
 
-const rmvPalavras = palavra => {
+const removeWords = palavra => {
 	var index = Palavras.indexOf(palavra);
 	if (index >= 0 && palavra.length > 0) {
 		Palavras.splice(index, 1);
@@ -60,22 +60,22 @@ const rmvPalavras = palavra => {
 		    }
 		});
 	}
-	limpaRefazAnalisador();
+	clearApp();
 };
 
-function limpaRefazAnalisador() {
+function clearApp() {
 	$('#tabela_tbody').html('');
 	$('#palavras_encontradas').html('');
 	IteracaoDosEstados = [0];
 	EstadoGlobal = 0;
 	Estados = [[]];
 	Tabela 	= [];
-	montaEstadoPalavra();
+	mountWordState();
 	Tabela = geraLinhasTabela();
-	montaTabela(Tabela);
+	mountTable(Tabela);
 };
 
-const montaEstadoPalavra = () => {
+const mountWordState = () => {
 	for(const arrayWords of Palavras) {
 		let actualState = 0;
 

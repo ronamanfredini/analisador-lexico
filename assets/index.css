@@ -2,15 +2,24 @@ html, body {
 	font-family: 'Roboto'!important;
 }
 
+.wrapper {
+	display: flex;
+}
+
 .title {
 	color: #fff;
-	font-size: 30px;
-	display: table;
-	margin: 0 auto;
+	font-size: 20px;
+}
+
+.app-wrapper {
+	width: 100%;
 }
 
 .navbar {
-	background-color: #2E2E2E;
+	background-color: #151414;
+	height: 100vh;
+	max-width: 20vw;
+	margin: 0;
 }
 
 .inputWordsContent {
@@ -51,16 +60,17 @@ html, body {
 /** Highlight Table **/
 
 .focus-linha td, .focus-coluna {
-	background: rgba(76, 175, 80, 0.1);
+	/* background: rgba(76, 175, 80, 0.1); */
+	background: #007bff5e;
 }
 
 .focus-linha td.focus-coluna {
 	color: #e7edee;
-	background: rgba(76, 175, 80, 0.7);
+	background: #007bff;
 }
 
 .focus-linha td, .focus-coluna {
-	background: rgba(76, 175, 80, 0.1);
+	background: #007bff5e;
 }
 
 .focus-linha td.focus-coluna-erro {
@@ -68,12 +78,16 @@ html, body {
 	background: rgba(231, 76, 60, 0.7);
 }
 
+.semi-focus-erro {
+	background: rgba(231, 76, 60, 0.2);
+}
+
 .fa-minus-circle {
 	color: red;
 }
 
 .fa-check-circle {
-	color: green;
+	color: #007bff;
 }
 
 .fas.fa-trash:hover {
