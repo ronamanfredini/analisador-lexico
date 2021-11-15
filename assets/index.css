@@ -1,0 +1,147 @@
+html, body {
+	font-family: 'Roboto'!important;
+}
+
+.title {
+	color: #fff;
+	font-size: 30px;
+	display: table;
+	margin: 0 auto;
+}
+
+.navbar {
+	background-color: #2E2E2E;
+}
+
+.inputWordsContent {
+	width: 300px;
+	height: -webkit-fill-available;
+	margin-left: 5px;
+}
+
+.automato-container {
+	margin-top: 20px;
+	display: flex;
+}
+
+.validateWordsContainer {
+	display: flex;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+	margin: 0 auto;
+}
+
+.left {
+	margin-right: 10px;
+	margin-top: 30px;
+}
+
+.left {
+	width: 300px;
+}
+
+.container {
+	margin-top: 30px;
+}
+
+.container {
+	max-width: 90% !important;
+	display: flex;
+}
+
+/** Highlight Table **/
+
+.focus-linha td, .focus-coluna {
+	background: rgba(76, 175, 80, 0.1);
+}
+
+.focus-linha td.focus-coluna {
+	color: #e7edee;
+	background: rgba(76, 175, 80, 0.7);
+}
+
+.focus-linha td, .focus-coluna {
+	background: rgba(76, 175, 80, 0.1);
+}
+
+.focus-linha td.focus-coluna-erro {
+	color: #e7edee;
+	background: rgba(231, 76, 60, 0.7);
+}
+
+.fa-minus-circle {
+	color: red;
+}
+
+.fa-check-circle {
+	color: green;
+}
+
+.fas.fa-trash:hover {
+	color: red;
+	cursor: pointer;
+}
+
+.tables-container {
+	margin-top: 16px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.text-center {
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border-radius: 0.25rem;
+}
+
+.footer {
+	color: white;
+	padding-top: 14px;
+	padding-bottom: 14px;
+	width: 100%;
+	display: flex;
+	position: fixed;
+	bottom: 0;
+	background-color: #151414;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.footer .input-custom {
+	padding: 5px 5px;
+	border-radius: 50px;
+	background: #2E2E2E;
+	outline: none;
+	color: white;
+	border: 1px solid #2E2E2E;
+}
+
+.footer .input-custom::placeholder {
+	color: #838080;
+}
+
+.footer .input-custom:focus {
+	border-color: inherit;
+	outline: none;
+}
+
+.footer .input-custom:active {
+	border-color: inherit;
+	outline: none;
+}
+
+.footer .insert-button {
+	margin-left: -20px;
+	padding: 6px 10px 6px 5px;
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+	border: 1px solid #007bff;
+	background: #007bff;
+	color: #fff;
+}
