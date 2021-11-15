@@ -1,84 +1,114 @@
-const mountTable = itemTab => {
-	var tabela = $('#tabela_tbody');
-	tabela.html('');
-	for (var i = 0; i < itemTab.length; i++) {
-		var tr = $(document.createElement('tr'));
-		var td = $(document.createElement('td'));
-		if (itemTab[i]['final']) {
-			td.html('q' + itemTab[i]['estado'] + '*');
-			td.addClass('tem-sel center border-custom');
-		} else {
-			td.html('q' + itemTab[i]['estado']);
-			td.addClass('tem-sel center border-custom');
-		}
-		tr.append(td);
-		tr.addClass('linha_' + itemTab[i]['estado']);
-		var primChar = 'a';
-		var ultiChar = 'z';
-		for (var j = primChar.charCodeAt(0); j <= ultiChar.charCodeAt(0); j++) {
-			var varra = String.fromCharCode(j);
-			var td = $(document.createElement('td'));
-			td.addClass('coluna_' + varra + ' center');
-			if (itemTab[i][varra] != '-') {
-				td.html('q' + itemTab[i][varra]);
-				td.addClass('tem-sel');
-			} else {
-				td.html('-').addClass('border-custom');
-			}
-			tr.append(td);
-		}
-		tabela.append(tr);
+const createTableRow = (tableItem) => {
+	let tableRow = $(document.createElement('tr'));
+	let tableData = $(document.createElement('td'));
+
+	if (tableItem['final']) {
+		tableData.html('q' + tableItem['estado'] + '*');
+		tableData.addClass('tem-sel center border-custom');
+	} else {
+		tableData.html('q' + tableItem['estado']);
+		tableData.addClass('tem-sel center border-custom');
 	}
+
+	tableRow.append(tableData);
+	tableRow.addClass('linha_' + tableItem['estado']);
+
+	return tableRow
+}
+
+const populateTableRow = (tableRow, tableItem) => {
+	let firstChar = 'a';
+	let lastChar = 'z';
+	for (let i = firstChar.charCodeAt(0); i <= lastChar.charCodeAt(0); i++) {
+		let dash = String.fromCharCode(i);
+		let td = $(document.createElement('td'));
+		td.addClass('coluna_' + dash + ' center');
+		if (tableItem[dash] != '-') {
+			td.html('q' + tableItem[dash]);
+			td.addClass('tem-sel');
+		} else {
+			td.html('-').addClass('border-custom');
+		}
+		tableRow.append(td);
+	}
+
+	return tableRow;
+}
+
+const mountTable = itemTab => {
+	let table = $('#tabela_tbody');
+	table.html('');
+
+	itemTab.forEach(tableItem => {
+		let tr = createTableRow(tableItem)
+		tr = populateTableRow(tr, tableItem)
+		table.append(tr);
+	})
 };
 
-const validateWord = () => {
-	var palavras = ($('#buscar_palavras').val()).toLowerCase();
-
-	if (palavras.length == 0) {
+const getWords = () => {
+	let words = ($('#buscar_palavras').val()).toLowerCase();
+	if (words.length == 0) {
 		$('#tabela_tbody tr').removeClass('focus-linha');
 		$('#tabela_tbody td').removeClass('focus-coluna');
 	}
-	var estado = 0;
-	var erroEstado = false;
 
-	for (var i = 0; i < palavras.length; i++) {
-		var exprRegular = /([a-z_])/;
-		if (exprRegular.test(palavras[i]) && erroEstado == false) {
-			highlightTable(estado, palavras[i], Tabela[estado][palavras[i]]);
+	return words;
+}
 
-			if (Tabela[estado][palavras[i]] != '-') { // se o estado não for de erro, ele aceita
-				estado = Tabela[estado][palavras[i]];
-			} else { // Rejeita caso o estado seja de erro
-				erroEstado = true;
-			}
-		} else if (palavras[i] == ' ') {
-			var plvrEncontrada = `<span class='right'><i class="far fa-check-circle"></i></span>`;
-			var plvrNaoEncontrada = `<span style="color:red;" class='right'><i class="far fa-times-circle"></i></span>`;
+const validateWordEnd = (words, error, state) => {
+	let foundWord = `<span class='right'><i class="far fa-check-circle"></i></span>`;
+	let notFound = `<span style="color:red;" class='right'><i class="far fa-times-circle"></i></span>`;
 
-			if (erroEstado == false) {
-				if (Tabela[estado]['final']) { //Se o estado for final da Encontrado, se não da Estado não final
-					$('#palavras_encontradas').append(`<tr><td class='plvr-overflow'>${palavras}${plvrEncontrada}</td></tr>`);
-				} else {
-					$('#palavras_encontradas').append(`<tr><td class='plvr-overflow'>${palavras}${plvrNaoEncontrada}</td></tr>`);
-				}
+	if (error == false) {
+		if (table[state]['final']) { //Se o estado for final da Encontrado, se não da Estado não final
+			$('#palavras_encontradas').append(`<tr><td class='plvr-overflow'>${words}${foundWord}</td></tr>`);
+		} else {
+			$('#palavras_encontradas').append(`<tr><td class='plvr-overflow'>${words}${notFound}</td></tr>`);
+		}
+	} else {
+		$('#palavras_encontradas').append(`<tr><td class='plvr-overflow'>${words}${notFound}</td></tr>`);
+	}
+	$('#tabela_tbody tr').removeClass('focus-linha');
+	$('#tabela_tbody td').removeClass('focus-coluna');
+	$('#buscar_palavras').val('');
+}
+
+const validateWord = () => {
+	let words = getWords();
+
+	let state = 0;
+	let error = false;
+
+	for (let i = 0; i < words.length; i++) {
+		let regularExpression = /([a-z_])/;
+		if (regularExpression.test(words[i]) && error == false) {
+			highlightTable(state, words[i], table[state][words[i]]);
+
+			if (table[state][words[i]] != '-') {
+				state = table[state][words[i]];
 			} else {
-				$('#palavras_encontradas').append(`<tr><td class='plvr-overflow'>${palavras}${plvrNaoEncontrada}</td></tr>`);
+				error = true;
 			}
-			$('#tabela_tbody tr').removeClass('focus-linha');
-			$('#tabela_tbody td').removeClass('focus-coluna');
-			$('#buscar_palavras').val('');
-		} else if (erroEstado == false) {
+		} else if (words[i] == ' ') {
+			validateWordEnd(words, error, state);
+		} else if (error == false) {
 		}
 	}
 };
 
-const highlightTable = (estado, palavra, erroEstado) => {
+const clearTable = () => {
 	$('#tabela_tbody tr').removeClass('focus-linha');
 	$('#tabela_tbody td').removeClass('focus-coluna');
 	$('#tabela_tbody tr').removeClass('focus-linha-erro');
 	$('#tabela_tbody td').removeClass('focus-coluna-erro');
 	$('#tabela_tbody tr').removeClass('semi-focus-erro');
 	$('#tabela_tbody td').removeClass('semi-focus-erro');
+}
+
+const highlightTable = (estado, palavra, erroEstado) => {
+	clearTable();
+
 	if (erroEstado == '-') {
 		$('#tabela_tbody .linha_' + estado).addClass('semi-focus-erro');
 		$('#tabela_tbody .coluna_' + palavra).addClass('semi-focus-erro');

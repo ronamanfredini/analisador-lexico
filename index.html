@@ -24,7 +24,7 @@
 	<div class="wrapper">
 		<div>
 			<p class="navbar">
-				<span class="title">Trabalho Final Linguagens Formais - Ronaldo Manfredini</span>
+				<span class="title">Trabalho Final<br /> Linguagens Formais - Ronaldo Manfredini</span>
 			</p>
 		</div>
 
@@ -113,15 +113,15 @@
 
 	</div>
 	<script>
-		$("#limpar_html").click(function () {
+		$("#limpar_html").click(() => {
 			$('#tabela_tbody').html('');
 			$('#palavras_encontradas').html('');
 			$('#input-field').html('');
-			Palavras = [];
-			IteracaoDosEstados = [0];
-			EstadoGlobal = 0;
-			Estados = [[]];
-			Tabela = [];
+			words = [];
+			stateInteractions = [0];
+			globalState = 0;
+			states = [[]];
+			table = [];
 		});
 	</script>
 </body>
