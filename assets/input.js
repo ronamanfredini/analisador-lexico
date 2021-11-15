@@ -39,8 +39,8 @@ $(document).ready(function(){
 
 const addPalavras = palavra => {
 	if (Palavras.indexOf(palavra) < 0 && palavra.length > 0) {
-		$('#input-field').append(`<span class='addedWord'>${palavra}
-								<i onclick=\"rmvPalavras('${palavra}')\" class='fas fa-trash'></i> </span><br>`);
+		$('#input-field').append(`<p class='addedWord'>${palavra}
+								<i onclick=\"rmvPalavras('${palavra}')\" style="color: red" class='far fa-times-circle'></i> </p>`);
 		Palavras.push(palavra);
 		$('#input_palavras').val('');
 	} 
@@ -55,10 +55,7 @@ const rmvPalavras = palavra => {
 		Palavras.splice(index, 1);
 		$(".addedWord").each(function() {
 		    if ($(this).text().trim() == palavra.trim()) {
-				$(this).css({
-				   'display' : 'none',
-				   'text-decoration' : 'line-through'
-				});
+				$(this).remove();
 				$(this).find("i").hide();
 		    }
 		});

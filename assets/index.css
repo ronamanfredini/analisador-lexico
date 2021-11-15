@@ -87,6 +87,10 @@ html, body {
 	justify-content: space-around;
 }
 
+.addedWord {
+	margin: 0;
+}
+
 .text-center {
 	position: relative;
 	display: -ms-flexbox;
