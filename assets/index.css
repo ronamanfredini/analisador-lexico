@@ -95,6 +95,10 @@ html, body {
 	cursor: pointer;
 }
 
+.table {
+	margin: 0;
+	padding: 0;
+}
 .tables-container {
 	margin-top: 16px;
 	display: flex;
