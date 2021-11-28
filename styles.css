@@ -1,7 +1,12 @@
 html, body {
 	font-family: 'Roboto'!important;
+	margin: 0;
 }
 
+
+h5 {
+	font-size: 18px;
+}
 .wrapper {
 	display: flex;
 }
@@ -20,6 +25,14 @@ html, body {
 	height: 100vh;
 	max-width: 20vw;
 	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.navbar span {
+	margin-left: 18px;
 }
 
 .inputWordsContent {
@@ -99,6 +112,19 @@ html, body {
 	margin: 0;
 	padding: 0;
 }
+
+thead {
+}
+tr {
+	margin: 4px;
+}
+
+td {
+	margin: 4px;
+	width: 25px;
+	text-align: center;
+}
+
 .tables-container {
 	margin-top: 16px;
 	display: flex;
