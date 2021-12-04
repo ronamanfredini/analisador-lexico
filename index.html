@@ -9,10 +9,19 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="styles.css">
+	<script>
+		let words = [];
+		let stateInteractions = [0];
+		let globalState = 0;
+		let states = [[]];
+		let table = [];
+	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://kit.fontawesome.com/2ad8f0bb00.js" crossorigin="anonymous"></script>
 	<script src="helpers.js"></script>
+	<script src="clear.js"></script>
 	<script src="input.js"></script>
+	<script src="init.js"></script>
 </head>
 
 <body>
@@ -102,10 +111,6 @@
 			</div>
 		</div>
 	</div>
-	
-
-
-	</div>
 	<script>
 		$("#limpar_html").click(() => {
 			$('#tabela_tbody').html('');
@@ -118,6 +123,10 @@
 			table = [];
 		});
 	</script>
+
+
+	</div>
+
 </body>
 
 </html>

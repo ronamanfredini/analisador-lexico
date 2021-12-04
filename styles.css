@@ -108,6 +108,10 @@ h5 {
 	cursor: pointer;
 }
 
+.table-busca tbody tr td {
+	text-align: left;
+}
+
 .table {
 	margin: 0;
 	padding: 0;
